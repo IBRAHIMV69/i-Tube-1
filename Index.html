@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Video Search & URL Buttons</title>
+    <title>Search & URL Lock with Countdown</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -21,26 +21,8 @@
             border-radius: 8px;
             margin: 16px;
         }
-        .video-task {
-            border-radius: 20px;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        iframe {
-            border: none;
-            width: 100%;
-            height: 180px;
-        }
-        .search-bar input {
-            width: 70%;
-            padding: 8px;
-            border-radius: 4px;
-            border: none;
-        }
-        .search-bar button, .url-buttons a {
-            padding: 8px 16px;
+        .url-buttons a {
+            padding: 25px 30px;
             border-radius: 4px;
             border: none;
             background: linear-gradient(to right, #000, #b21f1f, #000);
@@ -49,15 +31,41 @@
             text-decoration: none;
             text-align: center;
             margin-left: 8px;
+            opacity: 0.5;
+            pointer-events: none;
+            position: relative;
         }
-        .search-bar button:hover, .url-buttons a:hover {
-            background: linear-gradient(to right, #000, #d32f2f, #000);
+        .url-buttons a.active {
+            opacity: 1;
+            pointer-events: auto;
         }
-        .description {
-            margin: 16px;
-            font-size: 14px;
-            text-align: center;
-            color: #ddd;
+        .url-buttons a span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+        .search-bar input {
+            width: 70%;
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+        }
+        .search-bar button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            background: linear-gradient(to right, #000, #b21f1f, #000);
+            color: #fff;
+            cursor: pointer;
+        }
+        iframe {
+            width: 100%;
+            height: 170px;
+            border: none;
+            display: block;
+            margin: 16px auto;
         }
     </style>
 </head>
@@ -71,100 +79,71 @@
         <button onclick="searchVideo()">Search</button>
     </div>
     
-    <div class="video-container">
-        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+    <iframe id="videoIframe" src="" allowfullscreen></iframe>
     
-    <!-- Short Description -->
-    <p class="description">Get $2 for every visiting sites of advertisers.</p>
-
-    <!-- URL Buttons Section -->
     <div class="url-buttons">
-        <a href="https://example.com/page1" target="_blank" id="url1" onclick="markUrlVisited(0)">Earn $2</a>
-        <a href="https://example.com/page2" target="_blank" id="url2" onclick="markUrlVisited(1)">Earn $2</a>
-        <a href="https://example.com/page3" target="_blank" id="url3" onclick="markUrlVisited(2)">Earn $2</a>
-        <a href="https://example.com/page4" target="_blank" id="url4" onclick="markUrlVisited(3)">Earn $2</a>
+        <a href="https://example.com/page1" target="_blank" id="url1" onclick="markUrlVisited(0)">
+            <span>Earn $2</span>
+        </a>
+        <a href="https://example.com/page2" target="_blank" id="url2" onclick="markUrlVisited(1)">
+            <span>Earn $2</span>
+        </a>
+        <a href="https://example.com/page3" target="_blank" id="url3" onclick="markUrlVisited(2)">
+            <span>Earn $2</span>
+        </a>
+        <a href="https://example.com/page4" target="_blank" id="url4" onclick="markUrlVisited(3)">
+            <span>Earn $2</span>
+        </a>
     </div>
 
     <script>
-        // List of videos with titles and corresponding YouTube IDs
         const videoList = [
-            { title: "112233", id: "qzQvUKavtL0" },
-            { title: "Incredible Science", id: "AQO98HXS9o0" },
-            { title: "Gurnani", id: "i9ddLGUqrlU" }
+            { title: "Learn JavaScript", id: "upDLs1sn7g4" },
+            { title: "HTML Tutorial", id: "UB1O30fR-EE" },
+            { title: "CSS Basics", id: "yfoY53QXEnI" }
         ];
 
         let balance = parseFloat(localStorage.getItem('balance')) || 1.00;
-        let urlsVisited = JSON.parse(localStorage.getItem('urlsVisited')) || [null, null, null, null]; // Track URL visits and their timestamps
+        const urlsVisited = JSON.parse(localStorage.getItem('urlsVisited')) || [null, null, null, null];
 
-        // Update the balance display
         document.getElementById('balance').textContent = balance.toFixed(2);
 
-        // Function to unlock the next button after a visit
-        function unlockNextButton(index) {
-            if (index < 3 && !urlsVisited[index + 1]) {
-                document.getElementById(`url${index + 2}`).style.pointerEvents = 'auto'; // Unlock the next button
-                document.getElementById(`url${index + 2}`).style.opacity = '1'; // Make the next button visible
-            }
-        }
-
-        // Function to lock the buttons and mark visits
-        function lockButtons() {
-            for (let i = 0; i < urlsVisited.length; i++) {
-                const timestamp = urlsVisited[i];
-                const currentTime = new Date().getTime();
-                
-                if (timestamp) {
-                    const timeDifference = currentTime - timestamp;
-                    const oneHourInMillis = 60 * 60 * 1000;
-
-                    // Check if 1 hour has passed since the URL was visited
-                    if (timeDifference < oneHourInMillis) {
-                        document.getElementById(`url${i + 1}`).style.pointerEvents = 'none'; // Lock the button
-                        document.getElementById(`url${i + 1}`).style.opacity = '0.5'; // Make the button look locked
-                    } else {
-                        document.getElementById(`url${i + 1}`).style.pointerEvents = 'auto'; // Unlock the button
-                        document.getElementById(`url${i + 1}`).style.opacity = '1'; // Make the button visible
-                    }
-                } else {
-                    document.getElementById(`url${i + 1}`).style.pointerEvents = 'auto'; // Unlock the button if not visited
-                    document.getElementById(`url${i + 1}`).style.opacity = '1'; // Make the button visible
-                }
-            }
-        }
-
         function loadVideo(videoId) {
-            if (balance >= 1) {
-                balance -= 1;
-                localStorage.setItem('balance', balance.toFixed(2));
-                document.getElementById('balance').textContent = balance.toFixed(2);
-                const iframe = document.getElementById('videoIframe');
-                iframe.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1`;
-            } else {
-                alert("Insufficient balance. Visit the URL buttons to earn more balance.");
-            }
+            const iframe = document.getElementById('videoIframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
         }
 
         function searchVideo() {
-            const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
-            const video = videoList.find(v => v.title.toLowerCase() === searchQuery);
+            // Check if the balance is at least $1 before allowing search
+            if (balance >= 1) {
+                const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+                const video = videoList.find(v => v.title.toLowerCase().includes(searchQuery));
 
-            if (video) {
-                loadVideo(video.id);
+                if (video) {
+                    // Deduct $1 from the balance after a successful search
+                    balance -= 1;
+                    localStorage.setItem('balance', balance.toFixed(2));
+                    document.getElementById('balance').textContent = balance.toFixed(2);
+
+                    loadVideo(video.id);
+                } else {
+                    alert("No video found with the given title.");
+                }
             } else {
-                alert("Video not found. Please try another title.");
+                alert("Insufficient balance. Please visit the advertisers. site to earn more balance.");
             }
         }
 
         function markUrlVisited(index) {
-            if (!urlsVisited[index]) {
-                urlsVisited[index] = new Date().getTime(); // Store the timestamp of the visit
-                localStorage.setItem('urlsVisited', JSON.stringify(urlsVisited)); // Save to localStorage
-                addBalance(2.00); // Add $2 to the balance for visiting a URL
-                unlockNextButton(index); // Unlock the next button after the current one is visited
-                lockButtons(); // Lock visited buttons
+            const now = Date.now();
+
+            if (urlsVisited[index] === null || now - urlsVisited[index] >= 3600000) {
+                urlsVisited[index] = now;
+                localStorage.setItem('urlsVisited', JSON.stringify(urlsVisited));
+                addBalance(2.00);
+                lockButtons();
             } else {
-                alert("You have already visited this URL.");
+                alert("Please wait for the timer to finish.");
             }
         }
 
@@ -174,7 +153,43 @@
             document.getElementById('balance').textContent = balance.toFixed(2);
         }
 
-        // Initialize the buttons on page load
+        function lockButtons() {
+            const now = Date.now();
+
+            for (let i = 0; i < urlsVisited.length; i++) {
+                const button = document.getElementById(`url${i + 1}`);
+                const timeElapsed = now - urlsVisited[i];
+
+                if (urlsVisited[i] === null || timeElapsed >= 3600000) {
+                    button.classList.add('active');
+                    button.querySelector('span').textContent = "Earn $2";
+                } else {
+                    button.classList.remove('active');
+                    const timeRemaining = 3600000 - timeElapsed;
+                    startCountdown(button, timeRemaining);
+                }
+            }
+        }
+
+        function startCountdown(button, timeRemaining) {
+            const span = button.querySelector('span');
+            button.classList.remove('active');
+
+            const interval = setInterval(() => {
+                const minutes = Math.floor(timeRemaining / 60000);
+                const seconds = Math.floor((timeRemaining % 60000) / 1000);
+                span.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                timeRemaining -= 1000;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(interval);
+                    button.classList.add('active');
+                    span.textContent = "Earn $2";
+                }
+            }, 1000);
+        }
+
+        // Initial lock/unlock setup
         lockButtons();
     </script>
 </body>
