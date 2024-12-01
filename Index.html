@@ -118,7 +118,7 @@
     
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Enter video title...">
-        <button onclick="searchVideo()">Pay 🪙200</button>
+        <button onclick="searchVideo()">Pay 🪙100</button>
     </div>
     
     <div class="promo-code">
@@ -176,7 +176,7 @@
         return; // Stop execution if no input is provided
     }
 
-    if (balance >= 200) {
+    if (balance >= 100) {
         const video = videoList.find(v => v.title.toLowerCase().includes(searchQuery));
 
         if (video) {
@@ -186,7 +186,7 @@
             localStorage.setItem('lastSearchedVideo', JSON.stringify(lastSearchedVideo.slice(0, 1))); // Keep only one video
 
             // Deduct balance
-            balance -= 200;
+            balance -= 100;
             localStorage.setItem('balance', balance.toFixed(2));
             document.getElementById('balance').textContent = balance.toLocaleString('en-NG', { minimumFractionDigits: 2 });
 
