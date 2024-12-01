@@ -3,110 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search & URL Lock with Countdown</title>
+    <title>i Space</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #000, #b21f1f, #000);
+            background: linear-gradient(to right, #00c6ff, #0072ff);
             color: #fff;
             margin: 0;
             padding: 0;
         }
-        .balance, .search-bar, .url-buttons {
+        .balance, .search-bar, .url-buttons, .promo-code {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 8px;
-            margin: 16px;
+            padding: 5px;
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            margin: 15px;
         }
         .url-buttons a {
-            padding: 25px 30px;
-            border-radius: 4px;
-            border: none;
-            background: linear-gradient(to right, #000, #b21f1f, #000);
+            padding: 25px 35px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
             color: #fff;
-            cursor: pointer;
             text-decoration: none;
             text-align: center;
             margin-left: 8px;
-            opacity: 0.5;
+            opacity: 0.6;
             pointer-events: none;
             position: relative;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.3s, background 0.3s, transform 0.2s;
         }
         .url-buttons a.active {
             opacity: 1;
             pointer-events: auto;
+            transform: scale(1.05);
+        }
+        .url-buttons a:hover {
+            background: linear-gradient(135deg, #ff6a6a, #ff915d);
+            transform: scale(1.1);
         }
         .url-buttons a span {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 12px;
-        }
-        .search-bar input {
-            width: 70%;
-            padding: 8px;
-            border-radius: 4px;
-            border: none;
-        }
-        .search-bar button {
-            padding: 8px 16px;
-            border-radius: 4px;
-            border: none;
-            background: linear-gradient(to right, #000, #b21f1f, #000);
+            font-size: 14px;
+            font-weight: bold;
             color: #fff;
+        }
+        .search-bar input, .promo-code input {
+            width: 65%;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            background: #fff;
+            color: #333;
+            font-size: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .search-bar button, .promo-code button {
+            padding: 2px 5px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(135deg, #00c6ff, #338fff);
+            color: #fff;
+            font-size: 16px;
             cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .search-bar button:hover, .promo-code button:hover {
+            background: linear-gradient(135deg, #00c6ff, #338fff);
+            transform: scale(1.05);
         }
         iframe {
-            width: 100%;
-            height: 170px;
-            border: none;
+            width: 90%;
+            height: 250px;
+            border: 2px solid #fff;
+            border-radius: 12px;
             display: block;
-            margin: 16px auto;
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .description {
+            margin: 20px;
+            font-size: 10.5px;
+            text-align: center;
+            color: #ffff;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="balance">
-        <p>Balance: $<span id="balance">1.00</span></p>
-    </div>
-
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Enter video title...">
-        <button onclick="searchVideo()">Search</button>
+        <p>Balance: 🪙<span id="balance">200.00</span></p>
     </div>
     
     <iframe id="videoIframe" src="" allowfullscreen></iframe>
     
-    <div class="url-buttons">
-        <a href="https://example.com/page1" target="_blank" id="url1" onclick="markUrlVisited(0)">
-            <span>Earn $2</span>
-        </a>
-        <a href="https://example.com/page2" target="_blank" id="url2" onclick="markUrlVisited(1)">
-            <span>Earn $2</span>
-        </a>
-        <a href="https://example.com/page3" target="_blank" id="url3" onclick="markUrlVisited(2)">
-            <span>Earn $2</span>
-        </a>
-        <a href="https://example.com/page4" target="_blank" id="url4" onclick="markUrlVisited(3)">
-            <span>Earn $2</span>
-        </a>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Enter video title...">
+        <button onclick="searchVideo()">Pay 🪙200</button>
     </div>
-
+    
+    <div class="promo-code">
+        <input type="text" id="promoCodeInput" placeholder="Enter recharge code...">
+        <button onclick="applyPromoCode()">💳 Submit</button>
+    </div>    </a>
+    </div>
+    
+    <!-- Short Description -->
+    <p class="description">GET 🪙20 FOR VISITING SITES OF ADVERTISERS. OR BUY THE RECHARGE CODE FROM SELLER ON WHATSAPP: +234 9121295677</p>
+    
+    <div class="url-buttons">
+        <a href="https://zireemilsoude.net/4/7908761" target="_blank" id="url1" onclick="markUrlVisited(0)">
+            <span>Get 🪙20</span>
+        </a>
+        <a href="https://www.profitablecpmrate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" target="_blank" id="url2" onclick="markUrlVisited(1)">
+            <span>Get 🪙20</span>
+        </a>
+        <a href="https://zireemilsoude.net/4/7908756" target="_blank" id="url3" onclick="markUrlVisited(2)">
+            <span>Get 🪙20</span>
+        </a>
+        <a href="https://www.profitablecpmrate.com/vuq0mnejn?key=7241c685c3c694f609c9eebacbd85a50" target="_blank" id="url4" onclick="markUrlVisited(3)">
+            <span>Get 🪙20</span>
+        </a>
+    </div>     
+    
     <script>
         const videoList = [
-            { title: "Learn JavaScript", id: "upDLs1sn7g4" },
-            { title: "HTML Tutorial", id: "UB1O30fR-EE" },
+            { title: "Sadauki", id: "S8XB_-GZ2hM" },
+            { title: "HTML Tutorial", id: "ot4WNTK1ngY" },
+            { title: "CSS Basics", id: "yfoY53QXEnI" },
+            { title: "Sadauki", id: "S8XB_-GZ2hM" },
+            { title: "HTML Tutorial", id: "ot4WNTK1ngY" },
             { title: "CSS Basics", id: "yfoY53QXEnI" }
         ];
 
-        let balance = parseFloat(localStorage.getItem('balance')) || 1.00;
+        let balance = parseFloat(localStorage.getItem('balance')) || 200.00;
         const urlsVisited = JSON.parse(localStorage.getItem('urlsVisited')) || [null, null, null, null];
+        const promoCodes = { '1122ee': 500.00, '334400': 1000.00, '556677': 10000.00, '778811': 30.00 };
+        let usedPromoCodes = JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
 
-        document.getElementById('balance').textContent = balance.toFixed(2);
+        document.getElementById('balance').textContent = balance.toLocaleString('en-NG', { minimumFractionDigits: 2 });
 
         function loadVideo(videoId) {
             const iframe = document.getElementById('videoIframe');
@@ -114,25 +155,49 @@
         }
 
         function searchVideo() {
-            // Check if the balance is at least $1 before allowing search
-            if (balance >= 1) {
-                const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
-                const video = videoList.find(v => v.title.toLowerCase().includes(searchQuery));
+    const searchInput = document.getElementById('searchInput');
+    const searchQuery = searchInput.value.trim().toLowerCase();
 
-                if (video) {
-                    // Deduct $1 from the balance after a successful search
-                    balance -= 1;
-                    localStorage.setItem('balance', balance.toFixed(2));
-                    document.getElementById('balance').textContent = balance.toFixed(2);
+    // Check if the search input is empty
+    if (!searchQuery) {
+        alert("Please enter a video title before searching.");
+        return; // Stop execution if no input is provided
+    }
 
-                    loadVideo(video.id);
-                } else {
-                    alert("No video found with the given title.");
-                }
-            } else {
-                alert("Insufficient balance. Please visit the advertisers. site to earn more balance.");
-            }
+    if (balance >= 200) {
+        const video = videoList.find(v => v.title.toLowerCase().includes(searchQuery));
+
+        if (video) {
+            // Save the currently playing video in localStorage
+            const lastSearchedVideo = JSON.parse(localStorage.getItem('lastSearchedVideo')) || [];
+            lastSearchedVideo.unshift({ title: video.title, id: video.id }); // Add the new video to the beginning
+            localStorage.setItem('lastSearchedVideo', JSON.stringify(lastSearchedVideo.slice(0, 1))); // Keep only one video
+
+            // Deduct balance
+            balance -= 200;
+            localStorage.setItem('balance', balance.toFixed(2));
+            document.getElementById('balance').textContent = balance.toLocaleString('en-NG', { minimumFractionDigits: 2 });
+
+            loadVideo(video.id);
+        } else {
+            alert("No video found with the given title.");
         }
+    } else {
+        alert("Insufficient balance. Please Claim ₦20 for visiting sites of advertisers. Or buy a recharge code from seller on WhatsApp: +234 9121295677.");
+    }
+
+    // Clear the search input field after searching
+    searchInput.value = '';
+}
+
+window.onload = function() {
+    const lastSearchedVideo = JSON.parse(localStorage.getItem('lastSearchedVideo'));
+    if (lastSearchedVideo && lastSearchedVideo.length > 0) {
+        const lastVideo = lastSearchedVideo[0];
+        loadVideo(lastVideo.id); // Automatically load the last searched video
+        aler(`Last searched video: ${lastVideo.title}`);
+    }
+};
 
         function markUrlVisited(index) {
             const now = Date.now();
@@ -140,7 +205,7 @@
             if (urlsVisited[index] === null || now - urlsVisited[index] >= 3600000) {
                 urlsVisited[index] = now;
                 localStorage.setItem('urlsVisited', JSON.stringify(urlsVisited));
-                addBalance(2.00);
+                addBalance(20.00);
                 lockButtons();
             } else {
                 alert("Please wait for the timer to finish.");
@@ -150,7 +215,7 @@
         function addBalance(amount) {
             balance += amount;
             localStorage.setItem('balance', balance.toFixed(2));
-            document.getElementById('balance').textContent = balance.toFixed(2);
+            document.getElementById('balance').textContent = balance.toLocaleString('en-NG', { minimumFractionDigits: 2 });
         }
 
         function lockButtons() {
@@ -162,7 +227,7 @@
 
                 if (urlsVisited[i] === null || timeElapsed >= 3600000) {
                     button.classList.add('active');
-                    button.querySelector('span').textContent = "Earn $2";
+                    button.querySelector('span').textContent = "Get 🪙20";
                 } else {
                     button.classList.remove('active');
                     const timeRemaining = 3600000 - timeElapsed;
@@ -178,19 +243,46 @@
             const interval = setInterval(() => {
                 const minutes = Math.floor(timeRemaining / 60000);
                 const seconds = Math.floor((timeRemaining % 60000) / 1000);
-                span.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                span.textContent = `⏰${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
                 timeRemaining -= 1000;
 
                 if (timeRemaining <= 0) {
                     clearInterval(interval);
                     button.classList.add('active');
-                    span.textContent = "Earn $2";
+                    span.textContent = "Get 🪙20";
                 }
             }, 1000);
         }
 
-        // Initial lock/unlock setup
+        function applyPromoCode() {
+            const promoCode = document.getElementById('promoCodeInput').value.trim();
+
+            if (promoCodes[promoCode] && !usedPromoCodes.includes(promoCode)) {
+        const amount = promoCodes[promoCode];
+        addBalance(amount); // Update balance with the promo code value
+        usedPromoCodes.push(promoCode); // Mark code as used
+        localStorage.setItem('usedPromoCodes', JSON.stringify(usedPromoCodes)); // Save to localStorage
+        alert(`Recharge code applied! $${amount.toFixed(2)} added to your balance.`);
+    } else if (usedPromoCodes.includes(promoCode)) {
+        alert("You have already used this code.");
+    } else {
+        alert("Invalid code. Please try again.");
+    }
+
+    // Clear the input field
+    document.getElementById('promoCodeInput').value = '';
+}
+
+// Function to add balance
+function addBalance(amount) {
+    balance += amount;
+    localStorage.setItem('balance', balance.toFixed(2));
+    document.getElementById('balance').textContent = balance.toLocaleString('en-NG', { minimumFractionDigits: 2 });
+}
+
+        // Initialize the buttons on page load
         lockButtons();
     </script>
 </body>
 </html>
+
