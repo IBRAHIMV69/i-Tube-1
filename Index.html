@@ -118,7 +118,7 @@
     
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Enter video title...">
-        <button onclick="searchVideo()">Pay 🪙100</button>
+        <button onclick="searchVideo()">Pay 🪙200</button>
     </div>
     
     <div class="promo-code">
@@ -128,19 +128,19 @@
     </div>
     
     <!-- Short Description -->
-    <p class="description">GET 🪙20 FOR VISITING SITES OF ADVERTISERS. OR BUY RECHARGE CODE FROM SELLER ON TELEGRAM <a href="https://t.me/BuyCode_drs" target="_blank" class="url-button">Buy Code</a></p></p>
+    <p class="description">GET 🪙50 FOR VISITING SITES OF ADVERTISERS. OR BUY RECHARGE CODE FROM SELLER ON TELEGRAM <a href="https://t.me/BuyCode_drs" target="_blank" class="url-button">Buy Code</a></p></p>
     <div class="url-buttons">
         <a href="https://zireemilsoude.net/4/7908761" target="_blank" id="url1" onclick="markUrlVisited(0)">
-            <span>Get 🪙20</span>
+            <span>Get 🪙50</span>
         </a>
         <a href="https://www.profitablecpmrate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" target="_blank" id="url2" onclick="markUrlVisited(1)">
-            <span>Get 🪙20</span>
+            <span>Get 🪙50</span>
         </a>
         <a href="https://zireemilsoude.net/4/7908756" target="_blank" id="url3" onclick="markUrlVisited(2)">
-            <span>Get 🪙20</span>
+            <span>Get 🪙50</span>
         </a>
         <a href="https://www.profitablecpmrate.com/vuq0mnejn?key=7241c685c3c694f609c9eebacbd85a50" target="_blank" id="url4" onclick="markUrlVisited(3)">
-            <span>Get 🪙20</span>
+            <span>Get 🪙50</span>
         </a>
     </div>     
     
@@ -176,7 +176,7 @@
         return; // Stop execution if no input is provided
     }
 
-    if (balance >= 100) {
+    if (balance >= 200) {
         const video = videoList.find(v => v.title.toLowerCase().includes(searchQuery));
 
         if (video) {
@@ -186,7 +186,7 @@
             localStorage.setItem('lastSearchedVideo', JSON.stringify(lastSearchedVideo.slice(0, 1))); // Keep only one video
 
             // Deduct balance
-            balance -= 100;
+            balance -= 200;
             localStorage.setItem('balance', balance.toFixed(2));
             document.getElementById('balance').textContent = balance.toLocaleString('en-NG', { minimumFractionDigits: 2 });
 
@@ -217,7 +217,7 @@ window.onload = function() {
             if (urlsVisited[index] === null || now - urlsVisited[index] >= 3600000) {
                 urlsVisited[index] = now;
                 localStorage.setItem('urlsVisited', JSON.stringify(urlsVisited));
-                addBalance(20.00);
+                addBalance(50.00);
                 lockButtons();
             } else {
                 alert("Please wait for the timer to finish.");
@@ -239,7 +239,7 @@ window.onload = function() {
 
                 if (urlsVisited[i] === null || timeElapsed >= 3600000) {
                     button.classList.add('active');
-                    button.querySelector('span').textContent = "Get 🪙20";
+                    button.querySelector('span').textContent = "Get 🪙50";
                 } else {
                     button.classList.remove('active');
                     const timeRemaining = 3600000 - timeElapsed;
@@ -261,7 +261,7 @@ window.onload = function() {
                 if (timeRemaining <= 0) {
                     clearInterval(interval);
                     button.classList.add('active');
-                    span.textContent = "Get 🪙20";
+                    span.textContent = "Get 🪙50";
                 }
             }, 1000);
         }
